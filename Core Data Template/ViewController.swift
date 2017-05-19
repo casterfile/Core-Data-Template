@@ -14,10 +14,18 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let student:Student = NSEntityDescription.insertNewObject(forEntityName: "Student", into: DataBaseController.getContext()) as! Student
+        let studentClassName:String = String(describing: Student.self)
+        let courseClassName:String = String(describing: Course.self)
+        let student:Student = NSEntityDescription.insertNewObject(forEntityName: studentClassName, into: DataBaseController.getContext()) as! Student
         student.firstName = "Anthony"
         student.lastName = "Castor"
         student.age = 26
+        
+        let course:Course = NSEntityDescription.insertNewObject(forEntityName: courseClassName, into: DataBaseController.getContext()) as! Course
+        course.courseName = "Computer Science 402"
+        
+        student.addToCourses(course)
+//        course.addToStudent(student)
         
         DataBaseController.saveContext()
         
@@ -37,7 +45,7 @@ class ViewController: UIViewController {
         }
         
         
-        
+//        DataBaseController.getContext().delete(student)
     }
 
     override func didReceiveMemoryWarning() {
